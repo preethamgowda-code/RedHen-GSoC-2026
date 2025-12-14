@@ -1,17 +1,17 @@
 ```mermaid
 graph TD
     %% Nodes
-    A[("NewsScape Archive<br>(.mp4 / .mkv)")] -->|Raw Video| B[Audio Extraction]
-    B -->|Audio Stream| C{Whisper Model<br>(ASR)}
+    A[("NewsScape Archive<br>(.mp4 / .mkv)")] -->|Raw Video| B["Audio Extraction"]
+    B -->|"Audio Stream"| C{"Whisper Model<br>(ASR)"}
     
-    subgraph HPC_Cluster [CWRU HPC Cluster]
+    subgraph HPC_Cluster ["CWRU HPC Cluster"]
         style HPC_Cluster fill:#f9f,stroke:#333,stroke-width:2px
-        C -->|Transcribed Text| D[Singularity Container]
-        D -->|Tokenized Input| E[Llama-3-8B<br>(4-bit Quantized)]
-        E -->|Inference| F[Frame Blending Analysis]
+        C -->|"Transcribed Text"| D["Singularity Container"]
+        D -->|"Tokenized Input"| E["Llama-3-8B<br>(4-bit Quantized)"]
+        E -->|"Inference"| F["Frame Blending Analysis"]
     end
 
-    F -->|Structured Data| G[("Output JSON<br>(Metadata)")]
+    F -->|"Structured Data"| G[("Output JSON<br>(Metadata)")]
 
     %% Styling
     classDef storage fill:#eee,stroke:#333,stroke-width:2px;
