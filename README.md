@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     %% Nodes
     A[("NewsScape Archive<br>(.mp4 / .mkv)")] -->|Raw Video| B[Audio Extraction]
@@ -17,3 +18,4 @@ graph TD
     classDef process fill:#d4e1f5,stroke:#333,stroke-width:2px;
     class A,G storage;
     class B,C,D,E,F process;
+```
