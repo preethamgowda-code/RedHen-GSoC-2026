@@ -1,24 +1,38 @@
 # run_inference.py
 import torch
-import time
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-print("--- Starting Red Hen Inference Job ---")
+# 1. Setup - Select a model
+# We use 'gpt2' for this test because it's small, fast, and public.
+# In the real GSoC project, we will swap this for 'meta-llama/Meta-Llama-3-8B'
+MODEL_NAME = "gpt2"
 
-# 1. Check for GPU (The critical check for HPC)
-if torch.cuda.is_available():
-    print(f"SUCCESS: Detected GPU: {torch.cuda.get_device_name(0)}")
-    print(f"VRAM Available: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
-else:
-    print("WARNING: No GPU detected. Running on CPU (Not recommended for Production).")
+print(f"--- 🚀 Starting NLP Pipeline Test with {MODEL_NAME} ---")
 
-# 2. Simulation of a heavy task (Loading a model)
-print("Loading Llama-3-8B (Simulation)...")
-time.sleep(2) # Simulate load time
-print("Model loaded. Starting batch processing...")
+try:
+    # 2. Load the Tokenizer (The Translator)
+    # This converts "Hello" into numbers like [15496]
+    print(f"Downloading/Loading tokenizer for {MODEL_NAME}...")
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    
+    # 3. The Input Data (Frame Blending Example)
+    text_input = "The stock market dived this morning."
+    print(f"\n📥 Input Text: '{text_input}'")
 
-# 3. Simulate processing
-for i in range(5):
-    print(f"Processing Batch {i+1}/5...")
-    time.sleep(1)
+    # 4. Tokenization (The Core NLP Task)
+    # return_tensors="pt" means "Give me PyTorch tensors" (which GPUs need)
+    inputs = tokenizer(text_input, return_tensors="pt")
+    
+    print("\n🔢 Tokenized Output (Tensor):")
+    print(inputs['input_ids'])
+    
+    # 5. Proof of Understanding (Decoding back)
+    # We verify that the numbers actually represent the words
+    decoded_text = tokenizer.decode(inputs['input_ids'][0])
+    print(f"\n✅ Decoded Check: '{decoded_text}'")
+    
+    print("\n--- Success: Environment is ready for LLM Inference ---")
 
-print("--- Job Complete. Output saved to /results ---")
+except Exception as e:
+    print(f"\n❌ ERROR: {e}")
+    print("Tip: Make sure you have an internet connection to download the model config.")
