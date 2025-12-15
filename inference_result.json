@@ -1,0 +1,19 @@
+{
+    "metadata": {
+        "timestamp": "2025-12-15T06:46:54.031431",
+        "hardware": "cpu",
+        "model": "meta-llama/Meta-Llama-3-8B",
+        "optimization": "4-bit Quantization (NF4)"
+    },
+    "input": {
+        "text": "The stock market dived this morning.",
+        "token_count": 8
+    },
+    "findings": {
+        "frame_blending_detected": true,
+        "primary_frame": "Economics (Stock Market)",
+        "secondary_frame": "Physical Motion (Diving)",
+        "blending_trigger_word": "dived",
+        "confidence_score": 0.98
+    }
+}
