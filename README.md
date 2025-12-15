@@ -19,3 +19,9 @@ graph TD
     class A,G storage;
     class B,C,D,E,F process;
 ```
+## 🛠️ Tech Stack
+* **Containerization:** Apptainer / Singularity
+* **Model:** Llama-3-8B (4-bit Quantized via `bitsandbytes`)
+* **Orchestration:** Slurm Workload Manager
+* **Language:** Python 3.9+
+* **Optimization:** `bitsandbytes` (NF4 Quantization) to reduce VRAM usage by ~60%.  
