@@ -1,0 +1,22 @@
+Bootstrap: docker
+From: python:3.10-slim
+
+%post
+    apt-get update && apt-get install -y \
+        git \
+        libgl1 \
+        libglib2.0-0 \
+        build-essential \
+        python3-tk
+
+    pip install --upgrade pip
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+    pip install git+https://github.com/openai/CLIP.git
+    pip install opencv-python-headless langgraph langchain tqdm
+
+%environment
+    export LC_ALL=C
+    export PYTHONPATH=/app
+
+%runscript
+    python3 -c "import torch; import clip; print('SUCCESS: CLIP and PyTorch are active in the Red Hen Container!')"
