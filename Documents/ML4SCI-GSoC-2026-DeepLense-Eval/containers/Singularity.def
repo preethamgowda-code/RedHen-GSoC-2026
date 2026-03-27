@@ -1,0 +1,18 @@
+﻿Bootstrap: docker
+From: pytorch/pytorch:2.4.0-cuda12.1-cudnn8-runtime
+
+%post
+    apt-get update && apt-get install -y git
+    pip install --no-cache-dir \
+        timm \
+        wandb \
+        scikit-learn \
+        matplotlib \
+        numpy
+
+%environment
+    export LC_ALL=C
+    export WANDB_SILENT=true
+
+%runscript
+    python3 scripts/eval.py "$@"
